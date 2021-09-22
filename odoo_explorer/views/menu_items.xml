@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem name="Odoo Explorer" id="odoo_explorer_app_menu"
+                  web_icon="odoo_explorer,static/description/icon.png"
+                  groups="base.group_no_one"
+                  sequence="500" />
+
+        <menuitem name="Models" parent="odoo_explorer_app_menu" id="odoo_explorer_app_models_menu" sequence="10" action="base.action_model_model" />
+
+        <menuitem name="Modules" parent="odoo_explorer_app_menu" id="odoo_explorer_app_modules_menu" sequence="20" action="base.open_module_tree" />
+
+
+    </data>
+</odoo>

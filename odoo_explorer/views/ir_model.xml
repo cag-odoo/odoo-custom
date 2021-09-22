@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="ir_model_form_inherit" model="ir.ui.view">
+            <field name="name">ir_model_form_inherit</field>
+            <field name="model">ir.model</field>
+            <field name="inherit_id" ref="base.view_model_form" />
+            <field name="priority">150</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[1]" position="before">
+                    <div class="oe_button_box" name="button_box" attrs="{'invisible': [('related_field_qty', '=', 0)]}">
+
+                        <button string="Model Pathfinder" class="oe_stat_button" type="object" name="action_model_pathfinder" icon="fa-random" />
+
+
+                        <button class="oe_stat_button" type="object" name="action_show_related_fields" icon="fa-sitemap">
+                            <field name="related_field_qty" widget="statinfo" string="Related fields" />
+                        </button>
+
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

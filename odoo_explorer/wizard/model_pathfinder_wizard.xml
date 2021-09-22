@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="model_pathfinder_wizard_form" model="ir.ui.view">
+            <field name="name">model.pathfinder.wizard.form</field>
+            <field name="model">model.pathfinder.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Model Pathfinder">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="start_model_id" readonly="1" />
+                                <field name="end_model_id" />
+                            </group>
+                            <group>
+                                <field name="start_model_technical_name" nolabel="1" colspan="2"/>
+                                <field name="end_model_technical_name" nolabel="1" colspan="2" />
+                            </group>
+
+                        </group>
+                        <group string="Results" attrs="{'invisible': [('result_ids', '=', [])]}">
+                            <field name="result_ids" readonly="1" nolabel="1" colspan="2">
+                                <tree>
+                                    <field name="models_path" />
+                                    <field name="fields_path" />
+                                </tree>
+                            </field>
+                        </group>
+                        <footer>
+                            <button string="Find path"
+                                    class="btn oe_highlight"
+                                    type="object"
+                                    name="action_find_path" />
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="model_pathfinder_wizard_action" model="ir.actions.act_window">
+            <field name="name">Model pathfinder</field>
+            <field name="res_model">model.pathfinder.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+        </record>
+
+
+
+
+        <!-- Results -->
+
+        <record id="model_pathfinder_wizard_result_form" model="ir.ui.view">
+            <field name="name">model.pathfinder.wizard.result.form</field>
+            <field name="model">model.pathfinder.wizard.result</field>
+            <field name="arch" type="xml">
+                <form string="Result">
+                    <sheet>
+                        <group>
+                            <field name="models_path" />
+                            <field name="fields_path" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>
