@@ -16,6 +16,20 @@ class ModelPathfinderWizard(models.TransientModel):
     result_ids = fields.One2many(comodel_name="model.pathfinder.wizard.result", inverse_name="wizard_id")
 
 
+    def save_and_reopen(self):
+        action = self.env.ref('odoo_explorer.model_pathfinder_wizard_action').read()[0]
+        action['target'] = 'new'
+        action['res_id'] = self.id
+        return action
+
+
+    def action_inverse_models(self):
+        self.result_ids.unlink()
+        self.write({
+            'start_model_id': self.end_model_id,
+            'end_model_id': self.start_model_id,
+        })
+        return self.save_and_reopen()
 
 
     def action_find_path(self):
@@ -23,7 +37,7 @@ class ModelPathfinderWizard(models.TransientModel):
         clean_relations = self.clean_relations(raw_relations)
         all_paths = self.build_all_paths(clean_relations)
 
-        # Reset of result just in case we launch the script multiple times in the same wizard
+        # In case we launch the script multiple times in the same wizard
         self.result_ids.unlink()
 
         # Useful for future debugging
@@ -34,10 +48,7 @@ class ModelPathfinderWizard(models.TransientModel):
         for path in all_paths:
             self.create_result(path)
 
-        action = self.env.ref('odoo_explorer.model_pathfinder_wizard_action').read()[0]
-        action['target'] = 'new'
-        action['res_id'] = self.id
-        return action
+        return self.save_and_reopen()
 
 
     def create_result(self, path):
@@ -47,7 +58,7 @@ class ModelPathfinderWizard(models.TransientModel):
             m_path.append(model.model)
             fielded = path[i-1].related_field_from_ids.filtered(lambda f: f.relation == model.model)[:1]
             # print(fielded)
-            print("%s => %s" % (model.model, fielded.name))
+            # print("%s => %s" % (model.model, fielded.name))
             f_path.append(path[i-1].related_field_from_ids.filtered(lambda f: f.relation == model.model)[:1].name if i else 'record')
 
         # Small Bugfix, but I need to understand why sometimes if saved a path that isn't right

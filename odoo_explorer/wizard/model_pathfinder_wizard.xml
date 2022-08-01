@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <form string="Model Pathfinder">
                     <sheet>
-                        <group>
+                        <group string="Models">
                             <group>
                                 <field name="start_model_id" readonly="1" />
                                 <field name="end_model_id" />
@@ -18,6 +18,9 @@
                                 <field name="end_model_technical_name" nolabel="1" colspan="2" />
                             </group>
 
+                        </group>
+                        <group attrs="{'invisible': ['|', ('start_model_id', '=', False), ('end_model_id', '=', False)]}">
+                            <button name="action_inverse_models" string="Inverse models" type="object" colspan="2" />
                         </group>
                         <group string="Results" attrs="{'invisible': [('result_ids', '=', [])]}">
                             <field name="result_ids" readonly="1" nolabel="1" colspan="2">

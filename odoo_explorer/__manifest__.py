@@ -17,6 +17,7 @@
     'depends': ['web'],
 
     'data': [
+        'security/ir.model.access.csv',
         'views/ir_model.xml',
         'views/ir_model_fields.xml',
 
